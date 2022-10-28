@@ -11,7 +11,7 @@ module.exports = {
       bgGradientDeg: {
         60: "60deg",
       },
-    },
+      
   },
   plugins: [
     plugin(function ({ matchUtilities, theme }) {

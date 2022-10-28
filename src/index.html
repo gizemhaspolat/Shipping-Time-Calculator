@@ -11,98 +11,88 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/8720197227.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Document</title>
   </head>
   <body>
-    <h1 class="font-poppins font-bold text-[43px] text-[#2B2E39] ml-16 mb-20">
+    <h1
+      class="font-poppins font-bold text-2xl sm:text-[43px] text-[#2B2E39] sm:ml-10 ml-6 my-8 sm:my-16"
+    >
       The Company
     </h1>
     <h2
-      class="font-poppins font-extrabold text-[85px] text-[#2B2E39] ml-16 mb-20"
+      class="font-poppins font-extrabold text-[43px] sm:text-[85px] text-[#2B2E39] sm:ml-10 sm:justify-between ml-6 mb-8 sm:mb-16 sm:py-6"
     >
       Shipping Time Calculator
     </h2>
-    <div class="flex flex-col sm:flex-row ml-16 mb-16">
+    <div class="flex flex-col sm:flex-row sm:ml-10 ml-6">
       <input
         id="datepicker"
         placeholder="Order Date"
-        class="font-poppins font-medium text-[#2B2E39] text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] w-60 outline-none"
-        type="text"
         onfocus="(this.type='date')"
         onblur="(this.type='text')"
+        class="flex flex-row font-poppins font-medium justify-start text-[#2B2E39] sm:text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] w-48 sm:w-60 h-12 outline-none mb-6 sm:mr-4 focus:ring-4"
       />
-
-      <button
-        id="productstyle"
-        data-dropdown-toggle="dropdown"
-        class="font-poppins font-medium text-[#8D9092] text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] w-60 outline-none focus:ring-4 focus:outline-none inline-flex items-center"
-        type="button"
-      >
-        Fabric Type
-        <svg
-          class="ml-2 w-4 h-4"
-          aria-hidden="true"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+      <div class="relative inline-block">
+        <button
+          id="productstyle"
+          class="font-poppins font-medium text-[#8D9092] text-lg sm:text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] w-48 sm:w-60 h-12 sm:mr-4 outline-none focus:ring-4 focus:outline-none inline-flex items-center"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"
-          ></path>
-        </svg>
-      </button>
-      <div
-        id="dropdown-fabric"
-        class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow"
-        style="
-          position: absolute;
-          inset: 0px auto auto 0px;
-          margin: 0px;
-          transform: translate3d(0px, 305px, 0px);
-        "
-        data-popper-reference-hidden=""
-        data-popper-escaped=""
-        data-popper-placement="bottom"
-      >
-        <ul
-          class="py-1 text-sm text-gray-700 dark:text-gray-200"
-          aria-labelledby="dropdownDefault"
+          Fabric Type
+          <svg
+            class="w-4 h-4"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            style="margin-right: 10%"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </button>
+        <div
+          id="dropdown-fabric"
+          class="hidden absolute z-1 w-40 bg-[#8D9092] rounded divide-y divide-gray-500 shadow"
         >
-          <li>
-            <a
-              href="#"
-              class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Cotton</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >Linen</a
-            >
-          </li>
-        </ul>
+          <ul
+            class="py-2 text-sm font-poppins text-[#2B2E39] bg-white rounded shadow-xs overflow-auto focus:outline-none"
+          >
+            <li class="block py-2 px-4 hover:bg-[#8D9092]">Cotton</li>
+            <li class="block py-2 px-4 hover:bg-[#8D9092]">Linen</li>
+          </ul>
+        </div>
       </div>
 
       <input
         id="productnumber"
-        class="font-poppins font-medium #text-[#2B2E39] text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] w-60 h-auto outline-none"
-        type="text"
+        class="font-poppins font-medium text-[#2B2E39] text-lg sm:text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] h-12 w-48 mt-6 sm:mt-0 sm:w-60 sm:mr-4 outline-none focus:ring-4"
+        type="number"
         placeholder="Quantity"
       />
     </div>
+    <div id="quantityWarning" class="font-poppins text-sm hidden">
+      <p>Quantity should be between 0 and 100.</p>
+    </div>
     <button
-      class="font-poppins font-medium text-white text-[27px] border-[#8D9092] border-[2px] ml-16 mb-4 px-4 rounded-[50px] w-60 h-auto outline-none from-[#2414DB] to-[#AC6EFF] bg-gradient-to-r"
+      id="calculateBtn"
+      class="font-poppins font-medium text-white text-lg sm:text-[27px] border-[#8D9092] border-[2px] sm:ml-10 ml-6 mb-4 px-4 rounded-[50px] w-48 sm:w-60 h-12 outline-none from-[#2414DB] to-[#AC6EFF] bg-gradient-to-r"
     >
       Calculate
     </button>
-    <h3 class="font-poppins font-light text-[27px] ml-16 text-[#2B2E39]">
-      Please enter your order information to estimate shipping date
-    </h3>
+    <div class="flex flex-row mb-6 sm:ml-10 ml-6">
+      <h3 class="font-poppins font-light text-md sm:text-[27px] text-[#2B2E39]">
+        Please enter your order information to estimate shipping date
+      </h3>
+    </div>
   </body>
+  <script src="/src/index.js"></script>
 </html>
