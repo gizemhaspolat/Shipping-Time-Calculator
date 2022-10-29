@@ -11,24 +11,20 @@ module.exports = {
       bgGradientDeg: {
         60: "60deg",
       },
-      
+    },
+    plugins: [
+      plugin(function ({ matchUtilities, theme }) {
+        matchUtilities(
+          {
+            "bg-gradient": (angle) => ({
+              "background-image": `linear-gradient(to ${angle}, var(--tw-gradient-stops))`,
+            }),
+          },
+          {
+            values: theme("bgGradientDeg"),
+          }
+        );
+      }),
+    ],
   },
-  plugins: [
-    plugin(function ({ matchUtilities, theme }) {
-      matchUtilities(
-        {
-          "bg-gradient": (angle) => ({
-            "background-image": `linear-gradient(${angle}, var(--tw-gradient-stops))`,
-          }),
-        },
-        {
-          values: Object.assign(theme("bgGradientDeg", {}), {
-            60: "60deg",
-            90: "90deg",
-            120: "120deg",
-          }),
-        }
-      );
-    }),
-  ],
 };

@@ -18,80 +18,95 @@
     <title>Document</title>
   </head>
   <body>
-    <h1
-      class="font-poppins font-bold text-2xl sm:text-[43px] text-[#2B2E39] sm:ml-10 ml-6 my-8 sm:my-16"
-    >
-      The Company
-    </h1>
-    <h2
-      class="font-poppins font-extrabold text-[43px] sm:text-[85px] text-[#2B2E39] sm:ml-10 sm:justify-between ml-6 mb-8 sm:mb-16 sm:py-6"
-    >
-      Shipping Time Calculator
-    </h2>
-    <div class="flex flex-col sm:flex-row sm:ml-10 ml-6">
-      <input
-        id="datepicker"
-        placeholder="Order Date"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
-        class="flex flex-row font-poppins font-medium justify-start text-[#2B2E39] sm:text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] w-48 sm:w-60 h-12 outline-none mb-6 sm:mr-4 focus:ring-4"
-      />
-      <div class="relative inline-block">
+    <div class="h-full bg-gradient-to-tr to-[#2414DB] from-[#AC6EFF]">
+      <div
+        id="whiteBgDiv"
+        class="h-fit flex flex-col w-4/5 bg-white rounded-r-[30vh] pl-6"
+      >
+        <h1
+          class="font-poppins font-bold text-2xl sm:text-[43px] text-[#2B2E39] sm:ml-10 py-10 pr-8 sm:pb-24"
+        >
+          The Company
+        </h1>
+        <h2
+          class="font-poppins font-extrabold text-[43px] sm:text-[85px] text-[#2B2E39] leading-tight sm:ml-10 sm:justify-between mb-8 sm:mb-16 sm:py-6"
+        >
+          Shipping Time Calculator
+        </h2>
+        <div class="flex flex-col sm:flex-wrap sm:flex-row sm:ml-10">
+          <input
+            id="datepicker"
+            placeholder="Order Date"
+            onfocus="(this.type='date')"
+            onblur="(this.type='text')"
+            class="font-poppins font-medium text-lg justify-start text-[#2B2E39] sm:text-[27px] border-[#7837c7] border-[2px] px-4 rounded-[50px] w-48 sm:w-60 h-12 outline-none mb-6 sm:mr-4 focus:ring-4"
+          />
+          <div class="relative inline-block">
+            <button
+              id="productstyle"
+              class="font-poppins font-medium text-[#8D9092] bg-transparent text-lg sm:text-[27px] border-[#7837c7] border-[2px] px-4 rounded-[50px] w-48 sm:w-60 h-12 sm:mr-4 mb-6 outline-none focus:ring-4 focus:outline-none inline-flex items-center"
+            >
+              Fabric Type
+              <svg
+                class="w-4 h-4"
+                aria-hidden="true"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                style="margin-right: 10%"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+            <div
+              id="dropdown-fabric"
+              class="hidden absolute z-1 w-40 bg-[#8D9092] rounded divide-y divide-gray-500 shadow"
+            >
+              <ul
+                class="py-2 text-sm font-poppins text-[#2B2E39] bg-white rounded shadow-xs overflow-auto focus:outline-none"
+              >
+                <li class="block py-2 px-4 hover:bg-[#8D9092]">Cotton</li>
+                <li class="block py-2 px-4 hover:bg-[#8D9092]">Linen</li>
+              </ul>
+            </div>
+          </div>
+
+          <input
+            id="productnumber"
+            class="font-poppins font-medium text-[#2B2E39] text-lg sm:text-[27px] border-[#7837c7] border-[2px] px-4 rounded-[50px] h-12 w-48 sm:mt-0 sm:w-60 sm:mr-4 outline-none focus:ring-4"
+            type="number"
+            placeholder="Quantity"
+          />
+        </div>
+        <div id="quantityWarning" class="font-poppins text-sm hidden">
+          <p>Quantity should be between 0 and 100.</p>
+        </div>
+        <div id="dateWarning" class="font-poppins text-sm hidden">
+          <p>The date should be later than today.</p>
+        </div>
         <button
-          id="productstyle"
-          class="font-poppins font-medium text-[#8D9092] text-lg sm:text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] w-48 sm:w-60 h-12 sm:mr-4 outline-none focus:ring-4 focus:outline-none inline-flex items-center"
+          id="calculateBtn"
+          type="submit"
+          class="font-poppins font-medium text-white text-lg sm:text-[27px] border-[#8D9092] border-[2px] sm:ml-10 mb-4 mt-6 sm:mt-12 px-4 rounded-[50px] w-48 sm:w-60 h-12 from-[#2414DB] to-[#AC6EFF] bg-gradient-to-tr"
+          onclick="calculateShippingDay()"
         >
-          Fabric Type
-          <svg
-            class="w-4 h-4"
-            aria-hidden="true"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            style="margin-right: 10%"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7"
-            ></path>
-          </svg>
+          Calculate
         </button>
-        <div
-          id="dropdown-fabric"
-          class="hidden absolute z-1 w-40 bg-[#8D9092] rounded divide-y divide-gray-500 shadow"
-        >
-          <ul
-            class="py-2 text-sm font-poppins text-[#2B2E39] bg-white rounded shadow-xs overflow-auto focus:outline-none"
+        <div class="inline-block sm:ml-10">
+          <h3
+            id="shippingDay"
+            class="pr-4 py-4 mb-36 font-poppins font-light text-md sm:text-[27px] text-[#2B2E39]"
           >
-            <li class="block py-2 px-4 hover:bg-[#8D9092]">Cotton</li>
-            <li class="block py-2 px-4 hover:bg-[#8D9092]">Linen</li>
-          </ul>
+            Please enter your order information to estimate shipping date
+          </h3>
         </div>
       </div>
-
-      <input
-        id="productnumber"
-        class="font-poppins font-medium text-[#2B2E39] text-lg sm:text-[27px] border-[#8D9092] border-[2px] px-4 rounded-[50px] h-12 w-48 mt-6 sm:mt-0 sm:w-60 sm:mr-4 outline-none focus:ring-4"
-        type="number"
-        placeholder="Quantity"
-      />
-    </div>
-    <div id="quantityWarning" class="font-poppins text-sm hidden">
-      <p>Quantity should be between 0 and 100.</p>
-    </div>
-    <button
-      id="calculateBtn"
-      class="font-poppins font-medium text-white text-lg sm:text-[27px] border-[#8D9092] border-[2px] sm:ml-10 ml-6 mb-4 px-4 rounded-[50px] w-48 sm:w-60 h-12 outline-none from-[#2414DB] to-[#AC6EFF] bg-gradient-to-r"
-    >
-      Calculate
-    </button>
-    <div class="flex flex-row mb-6 sm:ml-10 ml-6">
-      <h3 class="font-poppins font-light text-md sm:text-[27px] text-[#2B2E39]">
-        Please enter your order information to estimate shipping date
-      </h3>
     </div>
   </body>
   <script src="/src/index.js"></script>
