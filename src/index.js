@@ -39,7 +39,6 @@ document.getElementById("datepicker").addEventListener("blur", dateWarning);
 function dateWarning() {
   let today = getToday();
   let selectedDay = document.getElementById("datepicker").value;
-  console.log(selectedDay);
   if (selectedDay < today) {
     document.getElementById("dateWarning").classList.remove("hidden");
   } else {
@@ -50,7 +49,7 @@ function dateWarning() {
 function getToday() {
   let today = new Date();
   let dd = today.getDate();
-  let mm = today.getMonth() + 1; //January is 0!
+  let mm = today.getMonth() + 1;
   let yyyy = today.getFullYear();
   if (dd < 10) {
     dd = "0" + dd;
@@ -58,116 +57,80 @@ function getToday() {
   if (mm < 10) {
     mm = "0" + mm;
   }
-
   return (today = yyyy + "-" + mm + "-" + dd);
 }
 
 function calculateShippingDay() {
   let day = document.getElementById("datepicker").value.split("-");
-  let fabricType = document.getElementById("productstyle").innerHTML;
+  let fabricType = document.getElementById("productstyle").innerHTML.trim();
   let quantity = document.getElementById("productnumber").value;
-  let selectedDay = new Date(day[0], day[1] - 1, day[2]);
-  console.log(selectedDay);
-  console.log(selectedDay.getDay());
+  let selectedDate = new Date(day[0], day[1] - 1, day[2]);
+  let selectedDateInMs = selectedDate.getTime();
+  let selectedDay = selectedDate.getDay();
 
   if (fabricType === "Cotton" && quantity < 50) {
     if (
-      selectedDay.getDay() === 0 ||
-      selectedDay.getDay() === 1 ||
-      selectedDay.getDay() === 2 ||
-      selectedDay.getDay() === 3
+      selectedDay === 0 ||
+      selectedDay === 1 ||
+      selectedDay === 2 ||
+      selectedDay === 3
     ) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 2
-      );
-
-      printShippingDate(shippingDay);
-    } else if (selectedDay.getDay() === 4 || selectedDay.getDay() === 5) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 4
-      );
-      printShippingDate(shippingDay);
-    } else if (selectedDay.getDay() === 6) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 3
-      );
-      printShippingDate(shippingDay);
+      printShippingDate(findShippingDay(selectedDateInMs, 2));
+    } else if (selectedDay === 4 || selectedDay === 5) {
+      printShippingDate(findShippingDay(selectedDateInMs, 4));
+    } else if (selectedDay === 6) {
+      printShippingDate(findShippingDay(selectedDateInMs, 3));
     }
   }
   if (fabricType === "Cotton" && quantity >= 50) {
     if (
-      selectedDay.getDay() === 0 ||
-      selectedDay.getDay() === 1 ||
-      selectedDay.getDay() === 2 ||
-      selectedDay.getDay() === 3
+      selectedDay === 0 ||
+      selectedDay === 1 ||
+      selectedDay === 2 ||
+      selectedDay === 3
     ) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 3
-      );
-
-      printShippingDate(shippingDay);
-    } else if (selectedDay.getDay() === 4 || selectedDay.getDay() === 5) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 5
-      );
-      printShippingDate(shippingDay);
-    } else if (selectedDay.getDay() === 6) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 4
-      );
-      printShippingDate(shippingDay);
+      printShippingDate(findShippingDay(selectedDateInMs, 3));
+    } else if (selectedDay === 4 || selectedDay === 5) {
+      printShippingDate(findShippingDay(selectedDateInMs, 5));
+    } else if (selectedDay === 6) {
+      printShippingDate(findShippingDay(selectedDateInMs, 4));
     }
   } else if (fabricType === "Linen" && quantity < 50) {
-    if (selectedDay.getDay() === 0 || selectedDay.getDay() === 1) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 4
-      );
-
-      printShippingDate(shippingDay);
+    if (selectedDay === 0 || selectedDay === 1) {
+      printShippingDate(findShippingDay(selectedDateInMs, 4));
     } else if (
-      selectedDay.getDay() === 2 ||
-      selectedDay.getDay() === 3 ||
-      selectedDay.getDay() === 4 ||
-      selectedDay.getDay() === 5
+      selectedDay === 2 ||
+      selectedDay === 3 ||
+      selectedDay === 4 ||
+      selectedDay === 5
     ) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 6
-      );
-      printShippingDate(shippingDay);
-    } else if (selectedDay.getDay() === 6) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 5
-      );
-      printShippingDate(shippingDay);
+      printShippingDate(findShippingDay(selectedDateInMs, 6));
+    } else if (selectedDay === 6) {
+      printShippingDate(findShippingDay(selectedDateInMs, 5));
     }
   } else if (fabricType === "Linen" && quantity >= 50) {
-    if (selectedDay.getDay() === 0) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 5
-      );
-
-      printShippingDate(shippingDay);
+    if (selectedDay === 0) {
+      printShippingDate(findShippingDay(selectedDateInMs, 5));
     } else if (
-      selectedDay.getDay() === 1 ||
-      selectedDay.getDay() === 2 ||
-      selectedDay.getDay() === 3 ||
-      selectedDay.getDay() === 4 ||
-      selectedDay.getDay() === 5
+      selectedDay === 1 ||
+      selectedDay === 2 ||
+      selectedDay === 3 ||
+      selectedDay === 4 ||
+      selectedDay === 5
     ) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 7
-      );
-      printShippingDate(shippingDay);
-    } else if (selectedDay.getDay() === 6) {
-      let shippingDay = new Date(
-        selectedDay.getTime() + 1000 * 60 * 60 * 24 * 6
-      );
-      printShippingDate(shippingDay);
+      printShippingDate(findShippingDay(selectedDateInMs, 7));
+    } else if (selectedDay === 6) {
+      printShippingDate(findShippingDay(selectedDateInMs, 6));
     }
   }
 }
 
-function printShippingDate(shippingDay) {
+function findShippingDay(selectedDateInMs, shipDaysLaterFromNow) {
+  return new Date(
+    selectedDateInMs + 1000 * 60 * 60 * 24 * shipDaysLaterFromNow
+  );
+}
+function printShippingDate(shippingDate) {
   const monthNames = [
     "January",
     "February",
@@ -185,9 +148,61 @@ function printShippingDate(shippingDay) {
   document.getElementById("shippingDay").classList.add("hidden");
   document.getElementById("shippingDateWarning").classList.remove("hidden");
   document.getElementById("estShippingDate").innerHTML =
-    shippingDay.getDate() +
+    shippingDate.getDate() +
     " " +
-    monthNames[shippingDay.getMonth()] +
+    monthNames[shippingDate.getMonth()] +
     " " +
-    shippingDay.getFullYear();
+    shippingDate.getFullYear();
+}
+
+window.openModal = function () {
+  document.getElementById("modal").style.display = "block";
+  document.getElementsByTagName("body")[0].classList.add("overflow-y-hidden");
+};
+
+window.onclick = function (event) {
+  if (event.target == document.getElementById("modal")) {
+    document.getElementById("modal").style.display = "none";
+    document
+      .getElementsByTagName("body")[0]
+      .classList.remove("overflow-y-hidden");
+  }
+};
+
+window.closeModal = function () {
+  document.getElementById("modal").style.display = "none";
+  document
+    .getElementsByTagName("body")[0]
+    .classList.remove("overflow-y-hidden");
+};
+
+document.onkeydown = function (event) {
+  event = event || window.event;
+  if (event.keyCode === 27) {
+    document
+      .getElementsByTagName("body")[0]
+      .classList.remove("overflow-y-hidden");
+  }
+};
+
+document.getElementById("calculateBtn").addEventListener("click", function () {
+  console.log(document.getElementById("productstyle").innerHTML);
+  console.log(document.getElementById("datepicker").innerHTML);
+  console.log(document.getElementById("productnumber").value);
+  if (
+    document.getElementById("productstyle").innerHTML.length > 100 ||
+    document.getElementById("productnumber").value === "" ||
+    document.getElementById("datepicker").value === ""
+  ) {
+    openModal();
+  }
+  calculateShippingDay();
+});
+
+function showTooltip() {
+  document.getElementById("tooltip").classList.remove("hidden");
+}
+
+function hideTooltip() {
+  document.getElementById("tooltip").classList.add("hidden");
 }

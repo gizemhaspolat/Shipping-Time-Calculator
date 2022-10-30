@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Shipping Day Calculator</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -77,10 +78,16 @@
               <ul
                 class="my-1 text-sm font-poppins text-[#2B2E39] bg-white rounded shadow-xs overflow-auto focus:outline-none"
               >
-                <li class="block py-2 px-4 hover:bg-[#d0c1e3] text-[#2B2E39]">
+                <li
+                  id="cotton"
+                  class="block py-2 px-4 hover:bg-[#d0c1e3] text-[#2B2E39]"
+                >
                   Cotton
                 </li>
-                <li class="block py-2 px-4 hover:bg-[#d0c1e3] text-[#2B2E39]">
+                <li
+                  id="cotton"
+                  class="block py-2 px-4 hover:bg-[#d0c1e3] text-[#2B2E39]"
+                >
                   Linen
                 </li>
               </ul>
@@ -92,24 +99,100 @@
           >
             <input
               id="productnumber"
-              class="relative max-h-fit px-2 -mx-3.5 w-[188px] sm:w-[236px] h-11 rounded-[50px] bg-white outline-none appearance-none"
+              class="relative max-h-fit px-2 -ml-3.5 w-[188px] sm:w-[236px] h-11 rounded-[50px] bg-white outline-none appearance-none"
               type="number"
               placeholder="Quantity"
               min="1"
               max="100"
             />
-            <svg
-              id="infoCircle"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              class="absolute bi bi-info-circle-fill m-1 w-6 h-6 text-[#8D9092]"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"
-              />
-            </svg>
+            <div>
+              <a
+                tabindex="0"
+                role="link"
+                aria-label="tooltip"
+                class="focus:outline-none focus:ring-gray-300 rounded-full focus:ring-offset-2 focus:ring-2 focus:bg-gray-200 relative mt-20 md:mt-0"
+                onmouseover="showTooltip()"
+                onfocus="showTooltip()"
+                onmouseout="hideTooltip()"
+              >
+                <div class="text-white cursor-pointer">
+                  <svg
+                    aria-haspopup="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-info-circle"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="#A0AEC0"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                    <polyline points="11 12 12 12 12 16 13 16" />
+                  </svg>
+                </div>
+                <div
+                  id="tooltip"
+                  role="tooltip"
+                  class="hidden z-20 -mt-20 w-64 absolute transition duration-150 ease-in-out left-0 ml-8 shadow-lg bg-white p-4 rounded"
+                >
+                  <svg
+                    class="absolute left-0 -ml-2 bottom-0 top-0 h-full"
+                    width="9px"
+                    height="16px"
+                    viewBox="0 0 9 16"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <g
+                      id="Page-1"
+                      stroke="none"
+                      stroke-width="1"
+                      fill="none"
+                      fill-rule="evenodd"
+                    >
+                      <g
+                        id="Tooltips-"
+                        transform="translate(-874.000000, -1029.000000)"
+                        fill="#FFFFFF"
+                      >
+                        <g
+                          id="Group-3-Copy-16"
+                          transform="translate(850.000000, 975.000000)"
+                        >
+                          <g
+                            id="Group-2"
+                            transform="translate(24.000000, 0.000000)"
+                          >
+                            <polygon
+                              id="Triangle"
+                              transform="translate(4.500000, 62.000000) rotate(-90.000000) translate(-4.500000, -62.000000) "
+                              points="4.5 57.5 12.5 66.5 -3.5 66.5"
+                            ></polygon>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+
+                  <p class="text-sm leading-4 font-poppins text-gray-600 pb-3">
+                    Shipping Dates May Vary Based on Quantity.
+                  </p>
+                </div>
+              </a>
+            </div>
           </div>
+          <!-- <div
+            id="infoText"
+            class="tooltip bg-[#d0c1e3] text-white text-poppins text-xs h-8 translate-x-100 rounded-lg px-2 py-1"
+          >
+            Shipping Dates May Vary Based on Quantity
+          </div> -->
         </div>
         <div
           id="quantityWarning"
@@ -132,19 +215,49 @@
           Calculate
         </button>
         <div class="inline-block sm:ml-10">
-          <h3
+          <p
             id="shippingDay"
             class="pr-4 py-4 mb-36 font-poppins font-light text-md sm:text-[27px] text-[#2B2E39]"
           >
             Please enter your order information to estimate shipping date
-          </h3>
-          <p
+          </p>
+          <h3
             id="shippingDateWarning"
             class="hidden pr-4 py-4 mb-36 font-poppins text-md sm:text-[27px] text-[#2B2E39]"
           >
             Your Estimated Shipping Time is
             <b><span id="estShippingDate"></span></b>.
-          </p>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div
+      id="modal"
+      class="fixed hidden font-poppins z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 modal"
+    >
+      <div
+        class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md"
+      >
+        <div
+          class="flex justify-between font-bold items-center bg-gradient-to-r from-[#2414DB] to-[#AC6EFF] text-white text-xl rounded-t-md px-4 py-2"
+        >
+          <h3>Warning</h3>
+          <button onclick="closeModal('modal')">x</button>
+        </div>
+
+        <div class="max-h-48 p-4">
+          <p>Please Fill All Information Correctly</p>
+        </div>
+
+        <div
+          class="px-4 py-2 border-t border-t-gray-500 flex justify-end items-center space-x-4"
+        >
+          <button
+            class="bg-[#2414DB] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+            onclick="closeModal('modal')"
+          >
+            Okay
+          </button>
         </div>
       </div>
     </div>
