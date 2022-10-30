@@ -182,12 +182,12 @@ function printShippingDate(shippingDay) {
     "November",
     "December",
   ];
-  document.getElementById("shippingDay").innerHTML =
-    "Your estimated shipping date is " +
+  document.getElementById("shippingDay").classList.add("hidden");
+  document.getElementById("shippingDateWarning").classList.remove("hidden");
+  document.getElementById("estShippingDate").innerHTML =
     shippingDay.getDate() +
     " " +
     monthNames[shippingDay.getMonth()] +
     " " +
-    shippingDay.getFullYear() +
-    ".";
+    shippingDay.getFullYear();
 }
